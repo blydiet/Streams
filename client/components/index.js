@@ -6,3 +6,8 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
+export {StreamList} from './stream-list'
+export {StreamShow} from './stream-show'
+export {StreamCreate} from './stream-create'
+export {StreamEdit} from './stream-edit'
+export {DeleteStream} from './stream-delete'
