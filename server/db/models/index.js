@@ -13,6 +13,8 @@ const Streams = require('./streams')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+Streams.belongsTo(User)
+User.hasMany(Streams)
 module.exports = {
   User,
   Streams

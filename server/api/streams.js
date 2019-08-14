@@ -26,7 +26,8 @@ router.post('/', async (req, res, next) => {
   try {
     const newStream = await Streams.create({
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+      userId: req.body.userId
     })
     res.json(newStream).status(201)
   } catch (error) {
@@ -55,6 +56,7 @@ router.put('/update/:id', async (req, res, next) => {
       title: req.body.title,
       description: req.body.description
     })
+    res.json(update).status(201)
   } catch (error) {
     console.log(error)
   }

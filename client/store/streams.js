@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const GET_STREAMS = 'NEW_STREAMS'
+const GET_STREAMS = 'GET_STREAMS'
 const GET_NEWSTREAM = 'GET_NEWSTREAM'
 const GET_STREAM = 'GET_STREAM'
 const REMOVE_STREAM = 'REMOVE_STREAM'
@@ -19,9 +19,19 @@ const updateStream = (streamId, updatedStream) => ({
   streamId,
   updateStream
 })
-export const createStream = (title, description) => async dispatch => {
+export const createStream = (title, description) => async (
+  dispatch,
+  getState
+) => {
   try {
-    const {data} = await axios.post('/api/streams', {title, description})
+    const {user} = getState()
+    console.log(user.id)
+    let userId = user.id
+    const {data} = await axios.post('/api/streams', {
+      title,
+      description,
+      userId
+    })
     dispatch(getNewStream(data))
   } catch (newStreamError) {
     console.log(newStreamError)
@@ -46,7 +56,7 @@ export const fetchStreams = () => async dispatch => {
 
 export const removeSteam = streamId => async dispatch => {
   try {
-    const removedSteam = await axios.delete(`/api/streams/${streamId}`)
+    await axios.delete(`/api/streams/${streamId}`)
     dispatch(removeSteam(streamId))
   } catch (error) {
     console.log(error)
@@ -58,10 +68,11 @@ export const streamUpdate = (
   description
 ) => async dispatch => {
   try {
-    const {data} = await axios.put(`/api/streams/${streamId}`, {
+    const {data} = await axios.put(`/api/streams/update/${streamId}`, {
       title,
       description
     })
+    console.log(data)
     dispatch(updateStream(data))
   } catch (error) {
     console.log(error)
@@ -73,7 +84,7 @@ export default function(state = streams, action) {
     case GET_NEWSTREAM:
       return action.stream
     case GET_STREAM:
-      return action.stream
+      return {...state, stream: action.stream}
     case GET_STREAMS:
       return {...state, allStreams: action.stream}
     case REMOVE_STREAM:

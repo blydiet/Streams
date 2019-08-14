@@ -7,6 +7,9 @@ const Streams = db.define('streams', {
   },
   description: {
     type: Sequelize.TEXT
+  },
+  userId: {
+    type: Sequelize.INTEGER
   }
 })
 module.exports = Streams

@@ -1,6 +1,7 @@
 import React from 'react'
 import {createStream} from '../store/streams'
 import {connect} from 'react-redux'
+import StreamForm from './stream-form'
 
 class NewStream extends React.Component {
   constructor(props) {
@@ -29,24 +30,13 @@ class NewStream extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleOnSubmit}>
-        <label>Create a new stream:</label>
-        <input
-          type="text"
-          name="title"
-          value={this.state.title}
-          onChange={this.handleChange}
-        />
-        <label>Description:</label>
-        <textarea
-          name="description"
-          value={this.state.description}
-          onChange={this.handleChange}
-        />
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+      <StreamForm
+        edit={false}
+        handleChange={this.handleChange}
+        handleOnSubmit={this.handleOnSubmit}
+        description={this.state.description}
+        title={this.state.title}
+      />
     )
   }
 }
