@@ -31,6 +31,7 @@ class Streams extends React.Component {
                           <Link to={`/streams/edit${stream.id}`}>
                             <button>Edit</button>
                           </Link>
+                          <button>Delete</button>
                         </div>
                       )}
                     </div>
