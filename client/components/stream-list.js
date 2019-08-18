@@ -7,10 +7,20 @@ import {me} from '../store/user'
 class Streams extends React.Component {
   constructor(props) {
     super(props)
+    this.createNewStream = this.createNewStream.bind(this)
   }
   componentDidMount() {
     this.props.fetchStreams()
     this.props.me()
+  }
+  createNewStream() {
+    return (
+      <div style={{textAlign: 'right'}}>
+        <Link to="/streams/new">
+          <button>Create Stream</button>
+        </Link>
+      </div>
+    )
   }
   render() {
     console.log()
@@ -27,11 +37,11 @@ class Streams extends React.Component {
                       <Link to="/streams/show">{stream.title}</Link>
                       <div>{stream.description}</div>
                       {stream.userId !== this.props.user.id ? null : (
-                        <div>
+                        <div className="right floated content">
                           <Link to={`/streams/edit${stream.id}`}>
-                            <button>Edit</button>
+                            <button className="ui button primary">Edit</button>
                           </Link>
-                          <button>Delete</button>
+                          <button className="ui button negative">Delete</button>
                         </div>
                       )}
                     </div>
@@ -40,6 +50,7 @@ class Streams extends React.Component {
               })
             : null}
         </div>
+        {this.props.user.id !== null ? this.createNewStream() : null}
       </div>
     )
   }
