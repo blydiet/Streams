@@ -17,7 +17,7 @@ class Streams extends React.Component {
     return (
       <div style={{textAlign: 'right'}}>
         <Link to="/streams/new">
-          <button>Create Stream</button>
+          <button className="ui button primary">Create Stream</button>
         </Link>
       </div>
     )
@@ -50,7 +50,7 @@ class Streams extends React.Component {
               })
             : null}
         </div>
-        {this.props.user.id !== null ? this.createNewStream() : null}
+        {this.props.user.id !== undefined ? this.createNewStream() : null}
       </div>
     )
   }
