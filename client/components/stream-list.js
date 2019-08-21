@@ -38,7 +38,7 @@ class Streams extends React.Component {
                       <div>{stream.description}</div>
                       {stream.userId !== this.props.user.id ? null : (
                         <div className="right floated content">
-                          <Link to={`/streams/edit${stream.id}`}>
+                          <Link to={`/streams/edit/${stream.id}`}>
                             <button className="ui button primary">Edit</button>
                           </Link>
                           <button className="ui button negative">Delete</button>

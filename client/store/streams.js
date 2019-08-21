@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 const GET_STREAMS = 'GET_STREAMS'
 const GET_NEWSTREAM = 'GET_NEWSTREAM'
@@ -25,7 +26,6 @@ export const createStream = (title, description) => async (
 ) => {
   try {
     const {user} = getState()
-    console.log(user.id)
     let userId = user.id
     const {data} = await axios.post('/api/streams', {
       title,
@@ -33,6 +33,7 @@ export const createStream = (title, description) => async (
       userId
     })
     dispatch(getNewStream(data))
+    history.push('/streams')
   } catch (newStreamError) {
     console.log(newStreamError)
   }
@@ -74,6 +75,7 @@ export const streamUpdate = (
     })
     console.log(data)
     dispatch(updateStream(data))
+    history.push('/streams')
   } catch (error) {
     console.log(error)
   }
