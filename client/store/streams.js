@@ -14,7 +14,7 @@ const streams = {
 const getStream = stream => ({type: GET_STREAM, stream})
 const getNewStream = stream => ({type: GET_NEWSTREAM, stream})
 const getStreams = stream => ({type: GET_STREAMS, stream})
-const removeStream = streamId => ({type: REMOVE_STREAM, streamId})
+const deleteStream = streamId => ({type: REMOVE_STREAM, streamId})
 const updateStream = (streamId, updatedStream) => ({
   type: EDIT_STREAM,
   streamId,
@@ -57,8 +57,9 @@ export const fetchStreams = () => async dispatch => {
 
 export const removeSteam = streamId => async dispatch => {
   try {
-    await axios.delete(`/api/streams/${streamId}`)
-    dispatch(removeSteam(streamId))
+    await axios.delete(`/api/streams/delete/${streamId}`)
+    dispatch(deleteStream(streamId))
+    history.push('/streams')
   } catch (error) {
     console.log(error)
   }
@@ -93,7 +94,7 @@ export default function(state = streams, action) {
       return {
         ...state,
         allStreams: state.allStreams.filter(
-          streams => stream.id !== action.streamId
+          streams => streams.id !== action.streamId
         )
       }
     case EDIT_STREAM:
