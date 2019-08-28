@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import {Link} from 'react-router-dom'
 const ModalForDelete = ({deleteStream}) => {
   //onClick={ () => deleteStream()}
   return (
@@ -18,8 +18,10 @@ const ModalForDelete = ({deleteStream}) => {
           </button>
         </span>
         <div className="ui primary ok inverted button">
-          <i className="checkmark icon" />
-          cancel
+          <Link to="/streams">
+            <i className="checkmark icon" />
+            cancel
+          </Link>
         </div>
       </div>
     </div>
