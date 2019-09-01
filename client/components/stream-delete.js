@@ -12,7 +12,7 @@ class RemoveStream extends React.Component {
     await this.props.removeSteam(Number(this.props.match.params.id))
   }
   render() {
-    return <Modal deleteStream={this.deleteStream} />
+    return <Modal title="Delete Stream" deleteStream={this.deleteStream} />
   }
 }
 const mapDispatchToProps = dispatch => ({
