@@ -38,9 +38,9 @@ export const createStream = (title, description) => async (
     console.log(newStreamError)
   }
 }
-export const fetchStream = () => async dispatch => {
+export const fetchStream = streamId => async dispatch => {
   try {
-    const {data} = await axios.get('/api/streams/:id')
+    const {data} = await axios.get(`/api/streams/${streamId}`)
     dispatch(getStream(data))
   } catch (error) {
     console.log(error)

@@ -31,12 +31,13 @@ class Routes extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/streams" component={StreamList} />
+        <Route exact path="/streams/show/:id" component={StreamShow} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route exact path="/streams" component={StreamList} />
-            <Route exact path="/streams/show" component={StreamShow} />
+            <Route exact path="/streams/show/:id" component={StreamShow} />
             <Route exact path="/streams/new" component={StreamCreate} />
             <Route exact path="/streams/edit/:id" component={StreamEdit} />
             <Route exact path="/streams/delete/:id" component={DeleteStream} />

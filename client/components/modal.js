@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Link} from 'react-router-dom'
 import history from '../history'
-const ModalForDelete = ({deleteStream, title}) => {
+const ModalForDelete = ({deleteStream, title, nameOfStream, renderContent}) => {
   //onClick={ () => deleteStream()}
-  console.log(title)
+  console.log(nameOfStream)
   return (
     <div
       className="ui standard modal visible active"
@@ -12,7 +12,8 @@ const ModalForDelete = ({deleteStream, title}) => {
     >
       <div className="ui red header">{title}</div>
       <div className="content">
-        <p>Are you sure you want to delete this stream ?</p>
+        {/* <p>Are you sure you want to delete this {nameOfStream.title} stream ?</p> */}
+        {renderContent()}
       </div>
       <div className="actions">
         <button
@@ -32,13 +33,18 @@ const ModalForDelete = ({deleteStream, title}) => {
     </div>
   )
 }
-const Modal = ({deleteStream, title}) => {
+const Modal = ({deleteStream, title, nameOfStream, renderContent}) => {
   return ReactDOM.createPortal(
     <div
       onClick={() => history.push('/streams')}
       className="ui dimmer modals visible active"
     >
-      <ModalForDelete deleteStream={deleteStream} title={title} />
+      <ModalForDelete
+        deleteStream={deleteStream}
+        title={title}
+        nameOfStream={nameOfStream}
+        renderContent={renderContent}
+      />
     </div>,
     document.getElementById('modal')
   )
