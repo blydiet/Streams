@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchStream} from '../store/streams'
-
+import flv from 'flv.js'
 class StreamVideo extends React.Component {
   constructor(props) {
     super(props)
