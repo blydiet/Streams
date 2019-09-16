@@ -5,6 +5,7 @@ import flv from 'flv.js'
 class StreamVideo extends React.Component {
   constructor(props) {
     super(props)
+    this.videoRef = React.createRef()
   }
   componentDidMount() {
     this.props.fetchStream(Number(this.props.match.params.id))
@@ -16,6 +17,7 @@ class StreamVideo extends React.Component {
     } else {
       return (
         <div>
+          <video videoRef={this.videoRef} style={{width: `100%`}} controls />
           <h1>{this.props.stream.title}</h1>
           <p>{this.props.stream.description}</p>
         </div>
