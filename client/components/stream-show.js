@@ -5,10 +5,19 @@ import flv from 'flv.js'
 class StreamVideo extends React.Component {
   constructor(props) {
     super(props)
-    this.videoRef = React.createRef()
+    this.videoref = React.createRef()
   }
   componentDidMount() {
-    this.props.fetchStream(Number(this.props.match.params.id))
+    const ID = Number(this.props.match.params.id)
+    this.props.fetchStream(ID)
+    if (this.videoref.current !== null) {
+      this.flvPlayer = flv.createPlayer({
+        type: 'flv',
+        url: `http://localhost:8000/live/${ID}.flv`
+      })
+      this.flvPlayer.attachMediaElement(this.videoref.current)
+      this.flvPlayer.load()
+    }
   }
 
   render() {
@@ -17,7 +26,7 @@ class StreamVideo extends React.Component {
     } else {
       return (
         <div>
-          <video videoRef={this.videoRef} style={{width: `100%`}} controls />
+          <video ref={this.videoref} style={{width: `100%`}} controls />
           <h1>{this.props.stream.title}</h1>
           <p>{this.props.stream.description}</p>
         </div>
