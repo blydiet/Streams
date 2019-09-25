@@ -1,9 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Modal from './modal'
 import {removeSteam} from '../store/streams'
 import {connect} from 'react-redux'
-import {fetchStream} from '../store/streams'
 class RemoveStream extends React.Component {
   constructor(props) {
     super(props)

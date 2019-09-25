@@ -6,11 +6,24 @@ class StreamVideo extends React.Component {
   constructor(props) {
     super(props)
     this.videoref = React.createRef()
+    this.buildFlvPlayer = this.buildFlvPlayer.bind(this)
   }
   componentDidMount() {
     const ID = Number(this.props.match.params.id)
     this.props.fetchStream(ID)
-    if (this.videoref.current !== null) {
+    this.buildFlvPlayer()
+  }
+  componentDidUpdate() {
+    this.buildFlvPlayer()
+  }
+  componentWillUnmount() {
+    this.flvPlayer.destroy()
+  }
+  buildFlvPlayer() {
+    const ID = Number(this.props.match.params.id)
+    if (!this.props.stream || this.flvPlayer) {
+      return 'Loading...'
+    } else {
       this.flvPlayer = flv.createPlayer({
         type: 'flv',
         url: `http://localhost:8000/live/${ID}.flv`
@@ -32,7 +45,6 @@ class StreamVideo extends React.Component {
         </div>
       )
     }
-    //return()
   }
 }
 const mapStateToProps = state => ({
