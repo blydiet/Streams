@@ -32,4 +32,7 @@ describe('StreamCreate', () => {
   it('has a text box', () => {
     expect(formDisplay.find('textarea')).to.have.lengthOf(1)
   })
+  it('has a input element', () => {
+    expect(formDisplay.find('input')).to.have.length(1)
+  })
 })
