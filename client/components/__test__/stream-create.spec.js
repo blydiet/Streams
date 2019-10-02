@@ -35,4 +35,7 @@ describe('StreamCreate', () => {
   it('has a input element', () => {
     expect(formDisplay.find('input')).to.have.length(1)
   })
+  it('it uses lables', () => {
+    expect(formDisplay.find('label')).to.have.length(2)
+  })
 })
