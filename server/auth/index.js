@@ -1,6 +1,12 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
+const jwt = require('jwt-simple')
 module.exports = router
+
+const tokenForUser = user => {
+  const timeStamp = new Date().getTime()
+  return jwt.encode({sub: user.id, iat: timeStamp}, process.env.secret)
+}
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -12,7 +18,10 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
-      req.login(user, err => (err ? next(err) : res.json(user)))
+      req.login(
+        user,
+        err => (err ? next(err) : res.json({token: tokenForUser(user)}))
+      )
     }
   } catch (err) {
     next(err)
@@ -22,7 +31,10 @@ router.post('/login', async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
-    req.login(user, err => (err ? next(err) : res.json(user)))
+    req.login(
+      user,
+      err => (err ? next(err) : res.json({token: tokenForUser(user)}))
+    )
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists')
