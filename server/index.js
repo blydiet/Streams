@@ -10,6 +10,10 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const JwtStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt
+const LoacalStratey = require('passport-local')
+const opts = {}
 module.exports = app
 
 // This is a global Mocha hook, used for resource cleanup.
@@ -27,6 +31,32 @@ if (process.env.NODE_ENV === 'test') {
  * Node process on process.env
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
+//jwt
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+opts.secretOrKey = process.env.secret
+
+// jwtpassport registration
+const jwtLogin = new JwtStrategy(opts, (jwtPayload, done) => {
+  try {
+    let user = db.models.user.findOne({id: jwtPayload.sub})
+    done(null, user)
+  } catch (error) {
+    done(error)
+  }
+})
+
+//passport LocalLogin
+const localLogin = new LoacalStratey((email, password, done) => {
+  try {
+    let user = db.models.user.findOne({email: email})
+    if (!user.verifyPassword(password)) {
+      done(null, false)
+    }
+    done(null, user)
+  } catch (error) {
+    done(error)
+  }
+})
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
@@ -62,7 +92,7 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
-
+  passport.use(jwtLogin)
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
