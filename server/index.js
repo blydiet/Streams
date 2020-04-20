@@ -32,18 +32,18 @@ if (process.env.NODE_ENV === 'test') {
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 //jwt
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
-opts.secretOrKey = process.env.secret
+// opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+// opts.secretOrKey = process.env.secret
 
 // jwtpassport registration
-const jwtLogin = new JwtStrategy(opts, (jwtPayload, done) => {
-  try {
-    let user = db.models.user.findOne({id: jwtPayload.sub})
-    done(null, user)
-  } catch (error) {
-    done(error)
-  }
-})
+// const jwtLogin = new JwtStrategy(opts, (jwtPayload, done) => {
+//   try {
+//     let user = db.models.user.findOne({id: jwtPayload.sub})
+//     done(null, user)
+//   } catch (error) {
+//     done(error)
+//   }
+// })
 
 //passport LocalLogin
 const localLogin = new LoacalStratey((email, password, done) => {
@@ -92,7 +92,7 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
-  passport.use(jwtLogin)
+  // passport.use(jwtLogin)
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
