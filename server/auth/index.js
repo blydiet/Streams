@@ -3,10 +3,10 @@ const User = require('../db/models/user')
 const jwt = require('jwt-simple')
 module.exports = router
 
-const tokenForUser = user => {
-  const timeStamp = new Date().getTime()
-  return jwt.encode({sub: user.id, iat: timeStamp}, process.env.secret)
-}
+// const tokenForUser = user => {
+//   const timeStamp = new Date().getTime()
+//   return jwt.encode({sub: user.id, iat: timeStamp}, process.env.secret)
+// }
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -20,7 +20,7 @@ router.post('/login', async (req, res, next) => {
     } else {
       req.login(
         user,
-        err => (err ? next(err) : res.json({token: tokenForUser(user)}))
+        err => (err ? next(err) : res.redirect('/auth/' + req.user))
       )
     }
   } catch (err) {
@@ -32,8 +32,9 @@ router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
     req.login(
-      user,
-      err => (err ? next(err) : res.json({token: tokenForUser(user)}))
+      user
+
+      //err => (err ? next(err) : res.json({token: tokenForUser(user)}))
     )
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
