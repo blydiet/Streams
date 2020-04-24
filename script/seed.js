@@ -18,6 +18,11 @@ const seedUser = [
     id: 3,
     email: 'funSun123@gmail.com',
     password: '123'
+  },
+  {
+    id: 4,
+    email: 'meshTogether@gmail.com',
+    password: '123'
   }
 ]
 
@@ -36,6 +41,11 @@ const seedStream = [
     title: 'Love Bug',
     description: 'This a song. You can see how to be so cool',
     userId: 3
+  },
+  {
+    title: 'Life is Good',
+    description: 'this is about a bugs life the movie that came out in 2003',
+    userId: 4
   }
 ]
 
