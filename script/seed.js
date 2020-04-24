@@ -1,27 +1,71 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
-const {Streams} = require('../server/db/models')
+const {User, Streams} = require('../server/db/models')
+
+const seedUser = [
+  {
+    id: 1,
+    email: 'btrfan12@gmail.com',
+    password: '123'
+  },
+  {
+    id: 2,
+    email: 'codey12@gmail.com',
+    password: '123'
+  },
+  {
+    id: 3,
+    email: 'funSun123@gmail.com',
+    password: '123'
+  }
+]
+
+const seedStream = [
+  {
+    title: 'Cool',
+    description: 'This a song. You can see how to be so cool',
+    userId: 1
+  },
+  {
+    title: 'Sun',
+    description: 'This a song. You can see how to be so cool',
+    userId: 2
+  },
+  {
+    title: 'Love Bug',
+    description: 'This a song. You can see how to be so cool',
+    userId: 3
+  }
+]
+
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+  try {
+    console.log('Seeding the database ...')
+    await User.bulkCreate(seedUser)
+    await Streams.bulkCreate(seedStream)
+    db.close()
+    console.log('Database was successfully seeded!!!')
+  } catch (error) {
+    console.error(error)
+  }
+  // const users = await Promise.all([
+  //   User.create({email: 'cody@email.com', password: '123'}),
+  //   User.create({email: 'murphy@email.com', password: '123'})
+  // ])
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  // const streams = await Promise.all([
+  //   Streams.create({
+  //     title: 'Book',
+  //     description: 'this is the coolest book you will ever see',
+  //     userId: 1
+  //   })
+  // ])
 
-  const streams = await Promise.all([
-    Streams.create({
-      title: 'Book',
-      description: 'this is the coolest book you will ever see',
-      userId: 1
-    })
-  ])
-
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+  //console.log(`seeded ${users.length} users`)
+  //console.log(`seeded successfully`)
 }
 
 // We've separated the `seed` function from the `runSeed` function.
