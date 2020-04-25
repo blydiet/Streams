@@ -3,7 +3,7 @@ import {fetchStreams} from '../store/streams'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {me} from '../store/user'
-
+import DisplayContent from './stream-displayContent'
 class Streams extends React.Component {
   constructor(props) {
     super(props)
@@ -34,10 +34,11 @@ class Streams extends React.Component {
                   <div className="item" key={stream.id}>
                     <i className="large middle aligned icon camera" />
                     <div className="content">
-                      <Link to={`/streams/show/${stream.id}`}>
-                        {stream.title}
-                      </Link>
-                      <div>{stream.description}</div>
+                      <DisplayContent
+                        id={stream.id}
+                        title={stream.title}
+                        description={stream.description}
+                      />
                       {stream.userId !== this.props.user.id ? null : (
                         <div className="right floated content">
                           <Link to={`/streams/edit/${stream.id}`}>
