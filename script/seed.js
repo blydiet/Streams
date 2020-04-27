@@ -33,6 +33,11 @@ const seedStream = [
     userId: 1
   },
   {
+    title: 'NBA',
+    description: 'This is a stream of a live NBA game',
+    userId: 1
+  },
+  {
     title: 'Sun',
     description: 'This a song. You can see how to be so cool',
     userId: 2
