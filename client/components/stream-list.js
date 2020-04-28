@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {me} from '../store/user'
 import DisplayContent from './stream-displayContent'
+
 class Streams extends React.Component {
   constructor(props) {
     super(props)
@@ -23,11 +24,10 @@ class Streams extends React.Component {
     )
   }
   render() {
-    console.log()
     return (
       <div>
         <h1>Streams</h1>
-        <div className="ui celled list">
+        <div id="display" className="ui celled list">
           {this.props.streams
             ? this.props.streams.map(stream => {
                 return (

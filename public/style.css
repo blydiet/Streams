@@ -19,3 +19,8 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+#display {
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  margin-left: 2rem;
+}
