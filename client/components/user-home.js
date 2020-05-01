@@ -12,7 +12,6 @@ export const UserHome = props => {
 
   return (
     <div className="ui celled list">
-      {/* <h3>Welcome, {email}</h3> */}
       {streams.map(stream => {
         return (
           <div className="item" key={stream.id}>

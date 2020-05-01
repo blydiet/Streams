@@ -19,8 +19,18 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
 #display {
   display: grid;
-  grid-template-columns: repeat(2, 2fr);
-  margin-left: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  margin-left: 10rem;
+}
+h1 {
+  display: flex;
+  justify-content: center;
+}
+.item {
+  display: flex;
+  justify-content: center;
 }
