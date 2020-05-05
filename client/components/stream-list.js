@@ -27,7 +27,7 @@ class Streams extends React.Component {
     return (
       <div>
         <h1>Streams</h1>
-        <div id="display" className="ui celled list">
+        <div id="display" className="ui list">
           {this.props.streams
             ? this.props.streams.map(stream => {
                 return (
